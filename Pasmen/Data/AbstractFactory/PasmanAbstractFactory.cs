@@ -7,18 +7,23 @@ namespace Pasman.Data.AbstractFactory
 {
     public abstract class PasmanAbstractFactory
     {
-        public static PasmanAbstractFactory Instance { get; } = GetInstance();
+        public static PasmanAbstractFactory Instance { get; } = CreateInstance();
 
-        private static PasmanAbstractFactory GetInstance()
+        private static PasmanAbstractFactory CreateInstance()
             => ResolvePasmanFactory(AppDomain.CurrentDomain.BaseDirectory);
 
-        public static PasmanAbstractFactory ResolvePasmanFactory(string licenceDirectory)
+        private static PasmanAbstractFactory ResolvePasmanFactory(string licenceDirectory)
         {
             var licenseFiles = Directory.GetFiles(licenceDirectory, "*.lic");
 
-            return licenseFiles.Length > 0
-                ? new PremmiumPasmanAbstractFactory()
-                : new FreePasmanAbstractFactory();
+            if (licenseFiles.Length > 0)
+            {
+                return new PremmiumPasmanFactory();
+            }
+            else
+            {
+                return new FreePasmanFactory();
+            }
         }
 
         public abstract IDataSource GetDataSource();

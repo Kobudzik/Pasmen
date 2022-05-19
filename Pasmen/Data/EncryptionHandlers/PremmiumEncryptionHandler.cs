@@ -10,7 +10,7 @@ namespace Pasman.Data.EncryptionHandlers
             throw new NotImplementedException();
         }
 
-        public string Encrypt()
+        public string Encrypt(string data)
         {
             //encrypt  64-bit des
             throw new NotImplementedException();

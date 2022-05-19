@@ -2,7 +2,7 @@
 {
     public interface IDataSource
     {
-        public void SaveData();
-        public string ReadData();
+        void SaveData();
+        string ReadData();
     }
 }

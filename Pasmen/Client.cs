@@ -3,7 +3,7 @@ using System;
 
 namespace Pasman
 {
-    internal static class Program
+    internal static class Client
     {
         public static string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         public const string pasmanFileName = "pasman.data";

@@ -3,7 +3,7 @@ using Pasman.Data.EncryptionHandlers;
 
 namespace Pasman.Data.AbstractFactory
 {
-    public class FreePasmanAbstractFactory : PasmanAbstractFactory
+    public class FreePasmanFactory : PasmanAbstractFactory
     {
         public override IDataSource GetDataSource()
         {

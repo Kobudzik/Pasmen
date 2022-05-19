@@ -2,7 +2,7 @@
 {
     public interface IEncryptionHandler
     {
-        public string Encrypt();
-        public string Decrypt(string data);
+        string Encrypt(string data);
+        string Decrypt(string data);
     }
 }
