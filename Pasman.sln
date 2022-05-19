@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pasman", "Pasmen\Pasman.csproj", "{7E90D347-65B6-47C4-9E9C-D508C3C88BF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CE8871AC-26E0-4E30-B624-C50D9E15FA5F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E90D347-65B6-47C4-9E9C-D508C3C88BF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E90D347-65B6-47C4-9E9C-D508C3C88BF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E90D347-65B6-47C4-9E9C-D508C3C88BF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E90D347-65B6-47C4-9E9C-D508C3C88BF3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C87148C-BFCA-454A-8BB7-A733C82DDDD6}
+	EndGlobalSection
+EndGlobal

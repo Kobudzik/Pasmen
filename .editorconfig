@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# RCS1005: Simplify nested using statement.
+dotnet_diagnostic.RCS1005.severity = none
