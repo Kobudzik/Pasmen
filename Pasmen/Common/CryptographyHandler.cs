@@ -21,12 +21,12 @@ namespace Pasman
             _vector = vector;
         }
 
-        public string Encrypt<T>(string value, string password)
+        public string Encrypt<T>(string data, string password)
                 where T : SymmetricAlgorithm, new()
         {
             byte[] vectorBytes = Encoding.ASCII.GetBytes(_vector);
             byte[] saltBytes = Encoding.ASCII.GetBytes(_salt);
-            byte[] valueBytes = Encoding.UTF8.GetBytes(value);
+            byte[] valueBytes = Encoding.UTF8.GetBytes(data);
 
             byte[] encrypted;
 
@@ -54,15 +54,15 @@ namespace Pasman
             return Convert.ToBase64String(encrypted);
         }
 
-        public string Encrypt(string value, string password)
-            => Encrypt<AesManaged>(value, password);
+        public string Encrypt(string data, string password)
+            => Encrypt<AesManaged>(data, password);
 
-        public string Decrypt<T>(string value, string password)
+        public string Decrypt<T>(string data, string password)
             where T : SymmetricAlgorithm, new()
         {
             byte[] vectorBytes = Encoding.ASCII.GetBytes(_vector);
             byte[] saltBytes = Encoding.ASCII.GetBytes(_salt);
-            byte[] valueBytes = Convert.FromBase64String(value);
+            byte[] valueBytes = Convert.FromBase64String(data);
 
             byte[] decrypted;
             int decryptedByteCount = 0;
@@ -94,7 +94,8 @@ namespace Pasman
             }
             return Encoding.UTF8.GetString(decrypted, 0, decryptedByteCount);
         }
-        public string Decrypt(string value, string password)
-            => Decrypt<AesManaged>(value, password);
+
+        public string Decrypt(string data, string password)
+            => Decrypt<AesManaged>(data, password);
     }
 }

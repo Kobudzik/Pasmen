@@ -17,16 +17,12 @@ namespace Pasman.Data.AbstractFactory
             var licenseFiles = Directory.GetFiles(licenceDirectory, "*.lic");
 
             if (licenseFiles.Length > 0)
-            {
                 return new PremmiumPasmanFactory();
-            }
             else
-            {
                 return new FreePasmanFactory();
-            }
         }
 
-        public abstract IDataSource GetDataSource();
+        public abstract IDataSerializer GetDataSource();
         public abstract IEncryptionHandler GetEncryptionHandler();
     }
 }

@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pasman.Data.DataSources
 {
-    public class PremmiumDataSource : IDataSource
+    public class XmlDataSerializer : IDataSerializer
     {
-        public string ReadData()
+        Dictionary<string, string> IDataSerializer.DeserializeData(string stringData)
         {
-            //read json
             throw new NotImplementedException();
         }
 
-        public void SaveData()
+        string IDataSerializer.SerializeData(IDictionary<string, string> dictionary)
         {
-            //save json
             throw new NotImplementedException();
         }
     }

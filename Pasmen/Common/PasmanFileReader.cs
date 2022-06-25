@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pasman.Exceptions;
+using System;
 using System.IO;
 
 namespace Pasman
@@ -21,15 +22,14 @@ namespace Pasman
             var dbFiles = Directory.GetFiles(_baseDirectory, _pasmanFileName);
 
             if (dbFiles.Length > 1)
-                throw new Exception("More than one Pasman DB found.");
+                throw new PasmanDatabaseException("More than one Pasman DB found.");
 
             if (dbFiles.Length == 0)
-                throw new Exception("No Pasman DB found.");
+                throw new PasmanDatabaseException("No Pasman DB found.");
 
-            var dbName = dbFiles[0];
-            Console.WriteLine($"Found database {dbName}.");
+            Console.WriteLine($"Found database {dbFiles[0]}.");
 
-            return dbName;
+            return dbFiles[0];
         }
 
         public string ReadPasmanDatabase()

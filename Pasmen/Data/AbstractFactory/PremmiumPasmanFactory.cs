@@ -5,9 +5,9 @@ namespace Pasman.Data.AbstractFactory
 {
     public class PremmiumPasmanFactory : PasmanAbstractFactory
     {
-        public override IDataSource GetDataSource()
+        public override IDataSerializer GetDataSource()
         {
-            return new PremmiumDataSource();
+            return new JsonDataSerializer();
         }
 
         public override IEncryptionHandler GetEncryptionHandler()

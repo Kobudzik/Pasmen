@@ -6,8 +6,9 @@ namespace Pasman.Data.EncryptionHandlers
     {
         public string Decrypt(string data)
         {
-            //decrypt  64-bit des
-            throw new NotImplementedException();
+            var encryptionHandler = new CryptographyHandler("rJ23$2Fgfds"); //todo set from db name
+            var encryptedData = encryptionHandler.Decrypt(data, "test"); //todo set from client input
+            return encryptedData;
         }
 
         public string Encrypt(string data)

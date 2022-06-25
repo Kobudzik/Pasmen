@@ -5,9 +5,9 @@ namespace Pasman.Data.AbstractFactory
 {
     public class FreePasmanFactory : PasmanAbstractFactory
     {
-        public override IDataSource GetDataSource()
+        public override IDataSerializer GetDataSource()
         {
-            return new FreeDataSource();
+            return new XmlDataSerializer();
         }
 
         public override IEncryptionHandler GetEncryptionHandler()
