@@ -7,35 +7,41 @@ namespace Pasman
     public class PasmanFileReader
     {
         private readonly string _baseDirectory;
-        private readonly string _pasmanFileName;
+        private readonly string _filesSearchPattern;
 
-        public PasmanFileReader(string baseDirectory, string pasmanFileName)
+        public PasmanFileReader(string baseDirectory, string filesSearchPattern)
         {
             _baseDirectory = baseDirectory;
-            this._pasmanFileName = pasmanFileName;
+            this._filesSearchPattern = filesSearchPattern;
         }
 
         public string GetDatabaseName()
         {
             Console.WriteLine("Checking for Pasman database existence...");
 
-            var dbFiles = Directory.GetFiles(_baseDirectory, _pasmanFileName);
+            var dbFilesPaths = Directory.GetFiles(_baseDirectory, _filesSearchPattern);
 
-            if (dbFiles.Length > 1)
+            if (dbFilesPaths.Length > 1)
                 throw new PasmanDatabaseException("More than one Pasman DB found.");
 
-            if (dbFiles.Length == 0)
-                throw new PasmanDatabaseException("No Pasman DB found.");
+            if (dbFilesPaths.Length == 0)
+                throw new PasmanDatabaseMissingException("No Pasman DB found.");
 
-            Console.WriteLine($"Found database {dbFiles[0]}.");
+            var dbFilePath = dbFilesPaths[0];
+            Console.WriteLine($"Found database {dbFilePath}.");
 
-            return dbFiles[0];
+            var fileName = Path.GetFileName(dbFilePath);
+
+            return fileName;
         }
 
-        public string ReadPasmanDatabase()
+        public string ReadPasmanDatabase(string path)
         {
             Console.WriteLine("Reading Pasman database...");
-            var data = File.ReadAllText(_baseDirectory + _pasmanFileName);
+            var data = File.ReadAllText(path);
+
+            if(string.IsNullOrEmpty(data))
+                throw new PasmanDatabaseMissingException("Pasman DB file does not contain data.");
 
             return data;
         }
