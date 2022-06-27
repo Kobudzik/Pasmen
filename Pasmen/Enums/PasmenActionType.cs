@@ -7,7 +7,7 @@
         Remove = 3,
         Clear = 4,
         Back = 5,
-        Save = 6,
-        Load = 7
+        SaveAll = 6,
+        ReloadFile = 7
     }
 }

@@ -49,17 +49,17 @@ namespace Pasmen
             Console.WriteLine($"Password for {element.Key}, value: {element.Key}");
         }
 
-        public static void EditPasswordName(this Dictionary<string, string> passwords, int index)
-        {
-            var element = passwords.ElementAt(index);
+        //public static void EditPasswordName(this Dictionary<string, string> passwords, int index)
+        //{
+        //    var element = passwords.ElementAt(index);
 
-            Console.WriteLine($"Enter new name for {element.Key}");
+        //    Console.WriteLine($"Enter new name for {element.Key}");
 
-            passwords.Remove(element.Key);
+        //    passwords.Remove(element.Key);
 
-            var newKey = Console.ReadLine();
-            passwords.Add(newKey, element.Value);
-        }
+        //    var newKey = Console.ReadLine();
+        //    passwords.Add(newKey, element.Value);
+        //}
 
         public static void EditPasswordValue(this Dictionary<string, string> passwords, int index)
         {

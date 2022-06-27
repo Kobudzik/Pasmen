@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pasmen.Data.AbstractFactory;
+using System;
 
 namespace Pasmen.Data.EncryptionHandlers
 {
@@ -6,15 +7,16 @@ namespace Pasmen.Data.EncryptionHandlers
     {
         public string Decrypt(string data)
         {
-            var encryptionHandler = new CryptographyHandler("rJ23$2Fgfds"); //todo set from db name
-            var encryptedData = encryptionHandler.Decrypt(data, "test"); //todo set from client input
+            var encryptionHandler = new CryptographyHandler(PasmenConfiguration.Instance.DbFileName);
+            var encryptedData = encryptionHandler.Decrypt(data, PasmenConfiguration.Instance.Password);
             return encryptedData;
         }
 
         public string Encrypt(string data)
         {
-            //encrypt  64-bit des
-            throw new NotImplementedException();
+            var encryptionHandler = new CryptographyHandler(PasmenConfiguration.Instance.DbFileName);
+            var encryptionResult = encryptionHandler.Encrypt(data, PasmenConfiguration.Instance.Password);
+            return encryptionResult;
         }
     }
 }

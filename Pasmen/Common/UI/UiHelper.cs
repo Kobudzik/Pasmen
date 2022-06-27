@@ -15,19 +15,31 @@ namespace Pasmen
             var input = Console.ReadKey().KeyChar;
             Console.WriteLine();
             var action = Enum.TryParse(input.ToString(), out PasmenActionType result);
-
             return action ? result : AskAction();
         }
 
         public static string PromptDatabaseName()
         {
-            Console.WriteLine("Enter Pasmen DB filename");
+            Console.WriteLine("Enter Pasmen DB name");
+            return Console.ReadLine();
+        }
+
+        public static string PromptDatabasePassword()
+        {
+            Console.WriteLine("Enter Pasmen DB password");
             return Console.ReadLine();
         }
 
         public static void WriteError(string msg)
         {
             Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(msg);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static void WriteSucccess(string msg)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(msg);
             Console.ForegroundColor = ConsoleColor.White;
         }
