@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace Pasman.Exceptions
+namespace Pasmen.Exceptions
 {
-    public class PasmanDatabaseCorruptedException : PasmanDatabaseException
+    public class PasmenDatabaseCorruptedException : PasmenDatabaseException
     {
-        public PasmanDatabaseCorruptedException()
+        public PasmenDatabaseCorruptedException()
         {
         }
 
-        public PasmanDatabaseCorruptedException(string message) : base(message)
+        public PasmenDatabaseCorruptedException(string message) : base(message)
         {
         }
     }

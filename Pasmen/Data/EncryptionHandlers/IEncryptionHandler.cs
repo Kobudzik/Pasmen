@@ -1,4 +1,4 @@
-﻿namespace Pasman.Data.EncryptionHandlers
+﻿namespace Pasmen.Data.EncryptionHandlers
 {
     public interface IEncryptionHandler
     {

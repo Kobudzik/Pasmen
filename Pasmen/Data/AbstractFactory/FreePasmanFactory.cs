@@ -1,9 +1,9 @@
-﻿using Pasman.Data.DataSources;
-using Pasman.Data.EncryptionHandlers;
+﻿using Pasmen.Data.DataSources;
+using Pasmen.Data.EncryptionHandlers;
 
-namespace Pasman.Data.AbstractFactory
+namespace Pasmen.Data.AbstractFactory
 {
-    public class FreePasmanFactory : PasmanAbstractFactory
+    public class FreePasmenFactory : PasmenAbstractFactory
     {
         public override IDataSerializer GetDataSource()
         {

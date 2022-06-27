@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pasman.Data.EncryptionHandlers
+namespace Pasmen.Data.EncryptionHandlers
 {
     public class FreeEncryptionHandler : IEncryptionHandler
     {

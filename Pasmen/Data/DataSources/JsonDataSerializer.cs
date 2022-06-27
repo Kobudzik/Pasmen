@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Pasman.Data.DataSources
+namespace Pasmen.Data.DataSources
 {
     public class JsonDataSerializer : IDataSerializer
     {

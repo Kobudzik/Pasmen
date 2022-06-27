@@ -5,5 +5,5 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE0063:Use simple 'using' statement", Justification = "<Pending>", Scope = "member", Target = "~M:Pasman.CryptographyHandler.Decrypt``1(System.String,System.String)~System.String")]
-[assembly: SuppressMessage("Style", "IDE0063:Use simple 'using' statement", Justification = "<Pending>", Scope = "member", Target = "~M:Pasman.CryptographyHandler.Encrypt``1(System.String,System.String)~System.String")]
+[assembly: SuppressMessage("Style", "IDE0063:Use simple 'using' statement", Justification = "<Pending>", Scope = "member", Target = "~M:Pasmen.CryptographyHandler.Decrypt``1(System.String,System.String)~System.String")]
+[assembly: SuppressMessage("Style", "IDE0063:Use simple 'using' statement", Justification = "<Pending>", Scope = "member", Target = "~M:Pasmen.CryptographyHandler.Encrypt``1(System.String,System.String)~System.String")]

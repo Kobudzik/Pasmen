@@ -1,25 +1,25 @@
-﻿using Pasman.Data.DataSources;
-using Pasman.Data.EncryptionHandlers;
+﻿using Pasmen.Data.DataSources;
+using Pasmen.Data.EncryptionHandlers;
 using System;
 using System.IO;
 
-namespace Pasman.Data.AbstractFactory
+namespace Pasmen.Data.AbstractFactory
 {
-    public abstract class PasmanAbstractFactory
+    public abstract class PasmenAbstractFactory
     {
-        public static PasmanAbstractFactory Instance { get; } = CreateInstance();
+        public static PasmenAbstractFactory Instance { get; } = CreateInstance();
 
-        private static PasmanAbstractFactory CreateInstance()
-            => ResolvePasmanFactory(AppDomain.CurrentDomain.BaseDirectory);
+        private static PasmenAbstractFactory CreateInstance()
+            => ResolvePasmenFactory(AppDomain.CurrentDomain.BaseDirectory);
 
-        private static PasmanAbstractFactory ResolvePasmanFactory(string licenceDirectory)
+        private static PasmenAbstractFactory ResolvePasmenFactory(string licenceDirectory)
         {
             var licenseFiles = Directory.GetFiles(licenceDirectory, "*.lic");
 
             if (licenseFiles.Length > 0)
-                return new PremmiumPasmanFactory();
+                return new PremmiumPasmenFactory();
             else
-                return new FreePasmanFactory();
+                return new FreePasmenFactory();
         }
 
         public abstract IDataSerializer GetDataSource();

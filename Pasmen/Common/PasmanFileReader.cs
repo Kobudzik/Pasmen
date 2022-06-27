@@ -1,49 +1,34 @@
-﻿using Pasman.Exceptions;
+﻿using Pasmen.Data.AbstractFactory;
+using Pasmen.Exceptions;
 using System;
 using System.IO;
 
-namespace Pasman
+namespace Pasmen
 {
-    public class PasmanFileReader
+    public static class PasmenFileReader
     {
-        private readonly string _baseDirectory;
-        private readonly string _filesSearchPattern;
-
-        public PasmanFileReader(string baseDirectory, string filesSearchPattern)
+        public static string PromptDatabaseName()
         {
-            _baseDirectory = baseDirectory;
-            this._filesSearchPattern = filesSearchPattern;
-        }
+            Console.WriteLine("Checking for Pasmen database existence...");
 
-        public string GetDatabaseName()
-        {
-            Console.WriteLine("Checking for Pasman database existence...");
-
-            var dbFilesPaths = Directory.GetFiles(_baseDirectory, _filesSearchPattern);
+            var dbFilesPaths = Directory.GetFiles(PasmenConfiguration.Instance.BaseDirectory, "*" + PasmenConfiguration.Pasmen_FILE_EXTENSION);
 
             if (dbFilesPaths.Length > 1)
-                throw new PasmanDatabaseException("More than one Pasman DB found.");
+                throw new PasmenDatabaseException("More than one Pasmen DB found.");
 
             if (dbFilesPaths.Length == 0)
-                throw new PasmanDatabaseMissingException("No Pasman DB found.");
+                throw new PasmenDatabaseMissingException("No Pasmen DB found.");
 
             var dbFilePath = dbFilesPaths[0];
             Console.WriteLine($"Found database {dbFilePath}.");
 
-            var fileName = Path.GetFileName(dbFilePath);
-
-            return fileName;
+            return Path.GetFileName(dbFilePath);
         }
 
-        public string ReadPasmanDatabase(string path)
+        public static string ReadFile(string path)
         {
-            Console.WriteLine("Reading Pasman database...");
-            var data = File.ReadAllText(path);
-
-            if(string.IsNullOrEmpty(data))
-                throw new PasmanDatabaseMissingException("Pasman DB file does not contain data.");
-
-            return data;
+            Console.WriteLine("Reading Pasmen database...");
+            return File.ReadAllText(path);
         }
     }
 }

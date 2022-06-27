@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Pasman
+namespace Pasmen
 {
     public static class SerializerHelper
     {

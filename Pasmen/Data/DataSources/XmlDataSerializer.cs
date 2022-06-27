@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Pasman.Data.DataSources
+namespace Pasmen.Data.DataSources
 {
     public class XmlDataSerializer : IDataSerializer
     {
