@@ -42,9 +42,9 @@ namespace Pasmen
                     using (var to = new MemoryStream())
                     using (var writer = new CryptoStream(to, encryptor, CryptoStreamMode.Write))
                     {
-                            writer.Write(valueBytes, 0, valueBytes.Length);
-                            writer.FlushFinalBlock();
-                            encrypted = to.ToArray();
+                        writer.Write(valueBytes, 0, valueBytes.Length);
+                        writer.FlushFinalBlock();
+                        encrypted = to.ToArray();
                     }
                 }
 

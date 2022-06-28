@@ -5,17 +5,70 @@ namespace Pasmen
 {
     internal static class UiHelper
     {
-        public static PasmenActionType AskAction()
+        #region write
+        public static void ProposeInitialActions()
         {
-            foreach (PasmenActionType enumType in Enum.GetValues(typeof(PasmenActionType)))
+            Console.WriteLine();
+            PrintMenuActions();
+            Console.WriteLine();
+            Console.WriteLine("Select password index or enter menu action: ");
+        }
+
+        public static void PrintMenuActions()
+        {
+            foreach (PasmenMenuActionType enumType in Enum.GetValues(typeof(PasmenMenuActionType)))
+            {
+                Console.WriteLine($"[{MenuActionsHelper.GetActionKeyByType(enumType)}] {enumType}");
+            }
+        }
+
+        public static void PrintEntryActions()
+        {
+            foreach (PasmenEntryActionType enumType in Enum.GetValues(typeof(PasmenEntryActionType)))
             {
                 Console.WriteLine($"[{(int)enumType} {enumType}]");
             }
+        }
 
-            var input = Console.ReadKey().KeyChar;
+        public static void WriteError(string msg, bool pressAnyKeyToContinue = false)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine();
-            var action = Enum.TryParse(input.ToString(), out PasmenActionType result);
-            return action ? result : AskAction();
+            Console.WriteLine("Error: " + msg);
+            Console.ForegroundColor = ConsoleColor.White;
+
+            if (pressAnyKeyToContinue)
+            {
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+            }
+        }
+
+        public static void WriteSucccess(string msg)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(msg);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static void AlertOperationResult(string msg)
+        {
+            Console.Clear();
+            WriteSucccess(msg);
+            Console.ReadKey();
+        }
+        #endregion write
+
+        #region read
+        public static PasmenEntryActionType ResolveEntryActionType(int input)
+        {
+            var action = Enum.TryParse(input.ToString(), out PasmenEntryActionType result);
+            return action ? result : throw new ArgumentException();
+        }
+
+        public static PasmenMenuActionType ResolveMenuActionType(string input)
+        {
+            return MenuActionsHelper.GetActionTypeByKey(input);
         }
 
         public static string PromptDatabaseName()
@@ -28,20 +81,6 @@ namespace Pasmen
         {
             Console.WriteLine("Enter Pasmen DB password");
             return Console.ReadLine();
-        }
-
-        public static void WriteError(string msg)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(msg);
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
-        public static void WriteSucccess(string msg)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(msg);
-            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static int ReadInt()
@@ -58,5 +97,6 @@ namespace Pasmen
 
             return result;
         }
+        #endregion
     }
 }

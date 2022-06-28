@@ -1,15 +1,53 @@
-﻿using Pasmen.Common;
-using Pasmen.Data.AbstractFactory;
+﻿using Pasmen.Data.AbstractFactory;
 using Pasmen.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace Pasmen
 {
     public static class PasmenService
     {
-        public static string FindDatabaseName()
+        public static Dictionary<string, string> ResolvePasswordEntries()
+        {
+            var conf = PasmenConfiguration.Instance;
+
+            if(string.IsNullOrEmpty(conf.DbFileName))
+            {
+                conf.DbFileName = FindExistingDatabaseName();
+
+                if(string.IsNullOrEmpty(conf.DbFileName))
+                    conf.DbFileName = UiHelper.PromptDatabaseName();
+            }
+
+            if(string.IsNullOrEmpty(conf.Password))
+                conf.Password = UiHelper.PromptDatabasePassword();
+
+            AssertFileExistence(conf.DbPath);
+
+            var stringifiedData = File.ReadAllText(PasmenConfiguration.Instance.DbPath);
+
+            if (!string.IsNullOrEmpty(stringifiedData))
+            {
+                try
+                {
+                    var decryptedData = PasmenAbstractFactory.Instance.GetEncryptionHandler().Decrypt(stringifiedData);
+                    var deserializedData = PasmenAbstractFactory.Instance.GetDataSource().DeserializeData(decryptedData);
+                    return deserializedData;
+                }
+                catch(CryptographicException)
+                {
+                    UiHelper.WriteError("Wrong password entered");
+                    conf.Password = null;
+                    return ResolvePasswordEntries();
+                }
+            }
+
+            return new Dictionary<string, string>();
+        }
+
+        private static string FindExistingDatabaseName()
         {
             Console.WriteLine("Checking for Pasmen database existence...");
 
@@ -19,73 +57,27 @@ namespace Pasmen
                 throw new PasmenDatabaseException("More than one Pasmen DB found.");
 
             if (dbFilesPaths.Length == 0)
-                throw new PasmenDatabaseMissingException("No Pasmen DB found.");
+                return null;
+            //throw new PasmenDatabaseMissingException("No Pasmen DB found.");
 
             var dbFilePath = dbFilesPaths[0];
             Console.WriteLine($"Found database {dbFilePath}.");
-
-            return Path.GetFileName(dbFilePath);
-        }
-
-        public static Dictionary<string, string> ResolvePasswordEntries()
-        {
-            var conf = PasmenConfiguration.Instance;
-            conf.DbFileName = FindDatabaseName();
-            conf.Password = UiHelper.PromptDatabasePassword();
-
-            var stringifiedData = GetStringifiedDbData();
-
-            if (!string.IsNullOrEmpty(stringifiedData))
-            {
-                try
-                {
-                    var decryptedData = PasmenAbstractFactory.Instance.GetEncryptionHandler().Decrypt(stringifiedData);
-                    var deserializedData = PasmenAbstractFactory.Instance.GetDataSource().DeserializeData(stringifiedData);
-                    return deserializedData;
-                }
-                catch (Exception ex)
-                {
-                    UiHelper.WriteError($"DB corrupted. Error: {ex.Message}");
-                    throw;
-                }
-            }
-
-            return new Dictionary<string, string>();
+            return Path.GetFileNameWithoutExtension(dbFilePath);
         }
 
 
-        public static string GetStringifiedDbData()
+        private static void AssertFileExistence(string path)
         {
-            try
-            {
-                var conf = PasmenConfiguration.Instance;
-                Console.WriteLine("Reading Pasmen database...");
-                return File.ReadAllText(conf.DbPath);
-            }
-            catch (PasmenDatabaseMissingException missingEx)
-            {
-                UiHelper.WriteError(missingEx.Message);
-
-                var conf = PasmenConfiguration.Instance;
-                conf.DbFileName = UiHelper.PromptDatabaseName();
-                File.Create(conf.BaseDirectory + conf.DbFileName + PasmenConfiguration.Pasmen_FILE_EXTENSION);
-                return null;
-            }
-            catch (PasmenDatabaseException ex)
-            {
-                UiHelper.WriteError($"Error: {ex.Message}");
-                throw;
-            }
+            if (!File.Exists(path))
+                File.Create(path).Close();
         }
 
         public static void SavePasswordEntries(IDictionary<string, string> passwords)
         {
             var serializedData = PasmenAbstractFactory.Instance.GetDataSource().SerializeData(passwords);
             var ecryptedData = PasmenAbstractFactory.Instance.GetEncryptionHandler().Encrypt(serializedData);
-            var configuration = PasmenConfiguration.Instance;
 
-            File.WriteAllText(configuration.DbPath, ecryptedData);
-            UiHelper.WriteSucccess("File saved succesfully");
+            File.WriteAllText(PasmenConfiguration.Instance.DbPath, ecryptedData);
         }
     }
 }

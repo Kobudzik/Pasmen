@@ -1,22 +1,38 @@
 ﻿using Pasmen.Data.AbstractFactory;
-using System;
 
 namespace Pasmen.Data.EncryptionHandlers
 {
     public class PremmiumEncryptionHandler : IEncryptionHandler
     {
+        private CryptographyHandler CryptographyHandler {get;}
+
+        public PremmiumEncryptionHandler()
+        {
+            CryptographyHandler = new CryptographyHandler(GetVector());
+        }
+
         public string Decrypt(string data)
         {
-            var encryptionHandler = new CryptographyHandler(PasmenConfiguration.Instance.DbFileName);
-            var encryptedData = encryptionHandler.Decrypt(data, PasmenConfiguration.Instance.Password);
+            var encryptedData = CryptographyHandler.Decrypt(data, PasmenConfiguration.Instance.Password);
             return encryptedData;
         }
 
         public string Encrypt(string data)
         {
-            var encryptionHandler = new CryptographyHandler(PasmenConfiguration.Instance.DbFileName);
-            var encryptionResult = encryptionHandler.Encrypt(data, PasmenConfiguration.Instance.Password);
+            var encryptionResult = CryptographyHandler.Encrypt(data, PasmenConfiguration.Instance.Password);
             return encryptionResult;
+        }
+
+        private string GetVector()
+        {
+            var vector = PasmenConfiguration.Instance.DbFileName;
+
+            while (vector.Length < 16)
+                vector +=  vector;
+
+            vector = vector.Substring(0, 16);
+
+            return vector;
         }
     }
 }

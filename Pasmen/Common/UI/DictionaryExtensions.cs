@@ -6,7 +6,7 @@ namespace Pasmen
 {
     public static class DictionaryExtensions
     {
-        public static void PrintPasswordNames(this Dictionary<string, string> passwords)
+        public static void PrintAddedPasswordNames(this Dictionary<string, string> passwords)
         {
             Console.Clear();
 
@@ -19,56 +19,45 @@ namespace Pasmen
             Console.WriteLine($"Total passwords stored: {passwords.Count}");
             Console.WriteLine();
 
-            var keys = passwords.Keys;
-
+            Console.WriteLine("Passwords:");
             for (int i = 0; i < passwords.Count; i++)
             {
-                Console.WriteLine($"[{i + 1}]. {keys.ElementAt(i)}");
+                Console.WriteLine($"[{i + 1}]. {passwords.Keys.ElementAt(i)}");
             }
-
-            Console.WriteLine();
-            Console.WriteLine($"Select password from range [1] - [{passwords.Count}]");
         }
 
         public static void AddPassword(this Dictionary<string, string> passwords)
         {
+            Console.Clear();
             Console.WriteLine("Enter name of password: ");
             var key = Console.ReadLine();
 
+            Console.Clear();
             Console.WriteLine("Enter value of password: ");
             var value = Console.ReadLine();
+
             passwords.Add(key, value);
         }
 
         public static void PrintPasswordEntry(this Dictionary<string, string> passwords, int index)
         {
+            Console.Clear();
             if (index > passwords.Count)
                 throw new ArgumentException($"Password with index {index} not found");
 
             var element = passwords.ElementAt(index);
-            Console.WriteLine($"Password for {element.Key}, value: {element.Key}");
+            Console.WriteLine($"Password {element.Key}, value: '{element.Value}'");
+            Console.WriteLine();
         }
-
-        //public static void EditPasswordName(this Dictionary<string, string> passwords, int index)
-        //{
-        //    var element = passwords.ElementAt(index);
-
-        //    Console.WriteLine($"Enter new name for {element.Key}");
-
-        //    passwords.Remove(element.Key);
-
-        //    var newKey = Console.ReadLine();
-        //    passwords.Add(newKey, element.Value);
-        //}
 
         public static void EditPasswordValue(this Dictionary<string, string> passwords, int index)
         {
             var element = passwords.ElementAt(index);
 
+            Console.Clear();
             Console.WriteLine($"Enter new value for {element.Key}");
 
             passwords.Remove(element.Key);
-
             passwords.Add(element.Key, Console.ReadLine());
         }
 

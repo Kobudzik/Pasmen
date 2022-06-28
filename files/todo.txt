@@ -1,0 +1,4 @@
+poklikac, sprwadzic zapis i odczyt
+
+dodac wzorzec kompoztyku na pliki?
+dodac wrzoec ozdoby na encode, ,read, dodac arhive?
