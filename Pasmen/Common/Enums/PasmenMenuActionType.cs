@@ -28,7 +28,6 @@ namespace Pasmen.Common
             return MenuActionMappings[type];
         }
 
-
         public static PasmenMenuActionType GetActionTypeByKey(string value)
         {
             return MenuActionMappings.Single(x => value.Equals(x.Value, System.StringComparison.CurrentCultureIgnoreCase)).Key;

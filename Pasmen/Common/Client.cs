@@ -13,7 +13,7 @@ namespace Pasmen
 
             for (int i = 0; i < int.MaxValue; i++)
             {
-                passwords.PrintAddedPasswordNames();
+                passwords.PrintPasswords();
                 UiHelper.ProposeInitialActions();
 
                 var input = Console.ReadKey().KeyChar.ToString();
@@ -58,9 +58,9 @@ namespace Pasmen
                     }
 
                 case PasmenEntryActionType.Back:
-                    {
-                        return;
-                    }
+                {
+                    return;
+                }
                 default:
                     throw new NotImplementedException();
             }

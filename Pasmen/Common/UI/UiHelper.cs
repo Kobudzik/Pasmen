@@ -62,8 +62,8 @@ namespace Pasmen
         #region read
         public static PasmenEntryActionType ResolveEntryActionType(int input)
         {
-            var action = Enum.TryParse(input.ToString(), out PasmenEntryActionType result);
-            return action ? result : throw new ArgumentException();
+            var isActionResolved = Enum.TryParse(input.ToString(), out PasmenEntryActionType result);
+            return isActionResolved ? result : throw new ArgumentException();
         }
 
         public static PasmenMenuActionType ResolveMenuActionType(string input)

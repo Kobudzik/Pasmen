@@ -6,7 +6,7 @@ namespace Pasmen
 {
     public static class DictionaryExtensions
     {
-        public static void PrintAddedPasswordNames(this Dictionary<string, string> passwords)
+        public static void PrintPasswords(this Dictionary<string, string> passwords)
         {
             Console.Clear();
 
@@ -26,6 +26,17 @@ namespace Pasmen
             }
         }
 
+        public static void PrintPasswordEntry(this Dictionary<string, string> passwords, int index)
+        {
+            Console.Clear();
+            if (index > passwords.Count)
+                throw new ArgumentException($"Password with index {index} not found");
+
+            var element = passwords.ElementAt(index);
+            Console.WriteLine($"Password {element.Key}, value: '{element.Value}'");
+            Console.WriteLine();
+        }
+
         public static void AddPassword(this Dictionary<string, string> passwords)
         {
             Console.Clear();
@@ -37,17 +48,6 @@ namespace Pasmen
             var value = Console.ReadLine();
 
             passwords.Add(key, value);
-        }
-
-        public static void PrintPasswordEntry(this Dictionary<string, string> passwords, int index)
-        {
-            Console.Clear();
-            if (index > passwords.Count)
-                throw new ArgumentException($"Password with index {index} not found");
-
-            var element = passwords.ElementAt(index);
-            Console.WriteLine($"Password {element.Key}, value: '{element.Value}'");
-            Console.WriteLine();
         }
 
         public static void EditPasswordValue(this Dictionary<string, string> passwords, int index)

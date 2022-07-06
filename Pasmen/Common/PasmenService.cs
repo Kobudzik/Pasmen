@@ -29,20 +29,7 @@ namespace Pasmen
             var stringifiedData = File.ReadAllText(PasmenConfiguration.Instance.DbPath);
 
             if (!string.IsNullOrEmpty(stringifiedData))
-            {
-                try
-                {
-                    var decryptedData = PasmenAbstractFactory.Instance.GetEncryptionHandler().Decrypt(stringifiedData);
-                    var deserializedData = PasmenAbstractFactory.Instance.GetDataSource().DeserializeData(decryptedData);
-                    return deserializedData;
-                }
-                catch(CryptographicException)
-                {
-                    UiHelper.WriteError("Wrong password entered");
-                    conf.Password = null;
-                    return ResolvePasswordEntries();
-                }
-            }
+                return ReadPasswordEntries(conf, stringifiedData);
 
             return new Dictionary<string, string>();
         }
@@ -70,6 +57,22 @@ namespace Pasmen
         {
             if (!File.Exists(path))
                 File.Create(path).Close();
+        }
+
+        private static Dictionary<string, string> ReadPasswordEntries(PasmenConfiguration conf, string stringifiedData)
+        {
+            try
+            {
+                var decryptedData = PasmenAbstractFactory.Instance.GetEncryptionHandler().Decrypt(stringifiedData);
+                var deserializedData = PasmenAbstractFactory.Instance.GetDataSource().DeserializeData(decryptedData);
+                return deserializedData;
+            }
+            catch (CryptographicException)
+            {
+                UiHelper.WriteError("Wrong password entered");
+                conf.Password = null;
+                return ResolvePasswordEntries();
+            }
         }
 
         public static void SavePasswordEntries(IDictionary<string, string> passwords)

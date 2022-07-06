@@ -30,9 +30,7 @@ namespace Pasmen.Data.EncryptionHandlers
             while (vector.Length < 16)
                 vector +=  vector;
 
-            vector = vector.Substring(0, 16);
-
-            return vector;
+            return vector.Substring(0, 16);
         }
     }
 }
